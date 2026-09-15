@@ -6,19 +6,30 @@ public:
 
         for (string s : strs) {
 
-            string key = s;
+            // Frequency of 26 lowercase letters
+            vector<int> freq(26, 0);
 
-            // Create sorted key
-            sort(key.begin(), key.end());
+            // Count each character
+            for (char ch : s) {
+                freq[ch - 'a']++;
+            }
 
-            // Group using sorted key
+            // Convert frequency array into a string key
+            string key = "";
+
+            for (int i = 0; i < 26; i++) {
+                key += to_string(freq[i]) + "#";
+            }
+
+            // Put string into its group
             mp[key].push_back(s);
         }
 
+        // Store all groups in answer
         vector<vector<string>> ans;
 
-        for (auto &it : mp) {
-            ans.push_back(it.second);
+        for (auto& pair : mp) {
+            ans.push_back(pair.second);
         }
 
         return ans;
